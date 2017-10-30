@@ -238,6 +238,10 @@ public class FtcRobotControllerActivity extends Activity
     }
 
     context = this;
+    // USER-ADDED
+    //StaticContext.staticContext = new StaticContext();
+    //StaticContext.staticContext.context = context;
+    // END USER-ADDED
     utility = new Utility(this);
     DeviceNameManager.getInstance().start(deviceNameManagerStartResult);
     PreferenceRemoterRC.getInstance().start(prefRemoterStartResult);
