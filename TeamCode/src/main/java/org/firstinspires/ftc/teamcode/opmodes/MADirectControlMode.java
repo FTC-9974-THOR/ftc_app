@@ -17,7 +17,7 @@ public class MADirectControlMode extends OpMode {
     @Override
     public void init() {
         ma = new ManipulatorArm(hardwareMap, 14.375, 10.03125);
-        ma.setElbowPos(0);
+        ma.setElbowSpeed(1);
         ma.setShoulderSpeed(1);
         telemetry.addData("Pos", ma.getShoulderTarget());
         telemetry.update();
@@ -39,8 +39,8 @@ public class MADirectControlMode extends OpMode {
         ma.setShoulderTarget(Math.min((int) (ma.getShoulderTarget() - (30 * gamepad1.right_stick_x)), 0));
         telemetry.addData("S Target", ma.getShoulderTarget());
 
-        ma.moveElbow(-0.000005 * gamepad1.left_stick_x);
-        telemetry.addData("Movement", -0.000005 * gamepad1.left_stick_x);
+        ma.setElbowTarget((int) (-0.1 * gamepad1.left_stick_x));
+        telemetry.addData("Movement", -0.1 * gamepad1.left_stick_x);
         telemetry.addData("E Target", ma.getElbowPos());
     }
 }
