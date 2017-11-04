@@ -1,8 +1,6 @@
 package com.smartstar.opencvteamcode;
 
-import android.annotation.SuppressLint;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -27,11 +25,11 @@ public class OpenCVTestMode extends OpMode implements CameraBridgeViewBase.CvCam
 
     GlyphPipeline pipeline;
     Mat frame;
-    OpenCVLoader ocvl;
+    OpenCVLoadGuard ocvl;
 
     @Override
     public void init() {
-        ocvl = new OpenCVLoader();
+        ocvl = new OpenCVLoadGuard();
         ocvl.safeInit(hardwareMap.appContext);
         pipeline = new GlyphPipeline();
         LinearLayout preview = (LinearLayout) ((FtcRobotControllerActivity) hardwareMap.appContext).findViewById(hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
