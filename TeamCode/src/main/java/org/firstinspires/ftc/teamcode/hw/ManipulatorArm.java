@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.util.Range;
 public class ManipulatorArm {
 
     private DcMotor shoulder;
-    private Servo elbow;
+    private DcMotor elbow;
 
     private double upperArm;
     private double lowerArm;
@@ -28,17 +28,18 @@ public class ManipulatorArm {
 
     public ManipulatorArm(HardwareMap hw, double upper, double lower) {
         shoulder = hw.dcMotor.get("MA-shoulder");
-        elbow = hw.servo.get("MA-elbow");
-        elbow.scaleRange(0, 0.21);
+        elbow = hw.dcMotor.get("MA-elbow");
 
         upperArm = upper;
         lowerArm = lower;
 
         shoulder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void enable() {
         shoulder.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        elbow.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     /**
@@ -46,6 +47,7 @@ public class ManipulatorArm {
      */
     public void coast() {
         shoulder.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     }
 
     /**
@@ -53,6 +55,11 @@ public class ManipulatorArm {
      */
     public void brake() {
         shoulder.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    public void setShoulderMode(DcMotor.RunMode mode) {
+        shoulder.setMode(mode);
     }
 
     /**
@@ -79,23 +86,33 @@ public class ManipulatorArm {
         return shoulder.getTargetPosition();
     }
 
-    /**
-     * Move the shoulder motor
-     * @param movement a value between -1 and 1; corresponds to motor power
-     */
-    public void moveElbow(double movement) {
-        elbow.setPosition(Range.clip(elbow.getPosition() + movement, 0, 180));
+    public void setElbowMode(DcMotor.RunMode mode) {
+        elbow.setMode(mode);
     }
 
     /**
-     * Set the raw position of the elbow. Most likely, other programs will not use this.
-     * It is used internally, however.
-     * @param pos servo position
+     * Set target pos of elbow
+     * @param pos target
      */
-    public void setElbowPos(double pos) {
-        elbow.setPosition(pos);
+    public void setElbowTarget(int pos) {
+        elbow.setTargetPosition(pos);
     }
 
+    /**
+     * Set elbow movement speed during position seeking
+     * @param speed movement speed
+     */
+    public void setElbowSpeed(double speed) {
+        elbow.setPower(speed);
+    }
+
+    /**
+     * Gets encoder target of elbow
+     * @return target
+     */
+    public int getElbowTarget() {
+        return elbow.getTargetPosition();
+    }
     /**
      * Get raw encoder ticks from the shoulder
      * @return ticks
@@ -109,7 +126,7 @@ public class ManipulatorArm {
      * @return a value between 0 and 1 that represents the position of the servo
      */
     public double getElbowPos() {
-        return elbow.getPosition();
+        return elbow.getCurrentPosition();
     }
 
     /**
@@ -141,7 +158,7 @@ public class ManipulatorArm {
      * @param angle desired angle, in radians
      */
     public void setElbowAngle(double angle) {
-        setElbowPos(((angle / (Math.PI / 3.0)) * 3.0));
+        setElbowTarget((int) (((angle / (Math.PI / 3.0)) * 3.0)) * TetrixMotorTicks.ticks);
     }
 
     /**
@@ -171,8 +188,10 @@ public class ManipulatorArm {
     public void setMode(ControlMode cm) {
         if (cm == ControlMode.IK) {
             shoulder.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            elbow.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         } else {
             shoulder.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            elbow.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 

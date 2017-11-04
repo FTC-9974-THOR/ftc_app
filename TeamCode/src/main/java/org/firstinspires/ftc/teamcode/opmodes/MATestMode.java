@@ -30,9 +30,11 @@ public class MATestMode extends OpMode {
         }
 
         if (gamepad1.dpad_up) {
-            arm.moveElbow(1);
+            arm.setElbowSpeed(1);
         } else if (gamepad1.dpad_down) {
-            arm.moveElbow(-1);
+            arm.setElbowSpeed(-1);
+        } else {
+            arm.setElbowSpeed(0);
         }
 
         if (gamepad1.left_bumper) {

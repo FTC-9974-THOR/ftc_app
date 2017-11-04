@@ -18,8 +18,8 @@ public class HoloPlusDrive {
         front = hw.dcMotor.get("HP-front");
         back = hw.dcMotor.get("HP-back");
 
-        left.setDirection(DcMotorSimple.Direction.REVERSE);
-        back.setDirection(DcMotorSimple.Direction.REVERSE);
+        front.setDirection(DcMotorSimple.Direction.REVERSE);
+        right.setDirection(DcMotorSimple.Direction.REVERSE);
 
         left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -30,15 +30,18 @@ public class HoloPlusDrive {
         right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         front.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         back.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        front.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        back.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void move(double x, double y, double rot) {
-        double rx = (x + rot);
-        double ry = (y + rot);
-        left.setPower(ry);
-        right.setPower(ry);
-        front.setPower(rx);
-        back.setPower(rx);
+        left.setPower(y - rot);
+        right.setPower(y + rot);
+        front.setPower(-x - rot);
+        back.setPower(x - rot);
     }
 
     // getX and getY only work until the robot turns

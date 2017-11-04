@@ -1,3 +1,10 @@
+boolean doOpenCV = false;
+task useOpenCV() {
+    doLast {
+        doOpenCV = true;
+    }
+}
+
 dependencies {
     compile project(':FtcRobotController')
     compile (name: 'RobotCore-release', ext: 'aar')
@@ -5,4 +12,8 @@ dependencies {
     compile (name: 'FtcCommon-release', ext: 'aar')
     compile (name:'Analytics-release', ext:'aar')
     compile (name:'WirelessP2p-release', ext:'aar')
+    if (doOpenCV) {
+        compile project(':openCVLibrary330')
+        compile project(':openCVTeamCode')
+    }
 }

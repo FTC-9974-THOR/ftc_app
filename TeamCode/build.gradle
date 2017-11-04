@@ -10,18 +10,7 @@
 // Custom definitions may go here
 // Include common definitions from above.
 apply from: '../build.common.gradle'
-boolean doOpenCV = false;
-task useOpenCV() {
-    doLast {
-        doOpenCV = true;
-    }
-}
-dependencies {
-    if (doOpenCV) {
-        compile project(':openCVLibrary330')
-        compile project(':openCVTeamCode')
-    }
-}
+//apply from: './build.release.gradle'
 android {
     defaultConfig {}
     productFlavors {
