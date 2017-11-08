@@ -13,6 +13,9 @@ public class OpenCVInitTestMode extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         boolean result = OpenCVLoader.initDebug();
 
+        while (!isStarted() && !isStopRequested()) {}
+        if (isStopRequested()) return;
+
         while (!isStopRequested()) {
             telemetry.addData("Result", result);
             telemetry.update();

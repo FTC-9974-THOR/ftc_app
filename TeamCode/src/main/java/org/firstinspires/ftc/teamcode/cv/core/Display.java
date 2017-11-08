@@ -1,4 +1,4 @@
-package com.smartstar.opencvteamcode.core;
+package org.firstinspires.ftc.teamcode.cv.core;
 
 import android.app.Activity;
 import android.content.Context;

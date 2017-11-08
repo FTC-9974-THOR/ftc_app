@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.cv;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.smartstar.opencvteamcode.core.Display;
+import org.firstinspires.ftc.teamcode.cv.core.Display;
 
 /**
  * Created by FTC on 11/4/2017.
