@@ -12,9 +12,26 @@
 apply from: '../build.common.gradle'
 //apply from: './build.release.gradle'
 android {
+    dexOptions {
+        jumboMode true
+    }
     defaultConfig {}
     productFlavors {
     }
     buildTypes {
     }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':FtcRobotController')
+    compile (name: 'RobotCore-release', ext: 'aar')
+    compile (name: 'Hardware-release', ext: 'aar')
+    compile (name: 'FtcCommon-release', ext: 'aar')
+    compile (name:'Analytics-release', ext:'aar')
+    compile (name:'WirelessP2p-release', ext:'aar')
+    compile project(':openCVLibrary330')
 }

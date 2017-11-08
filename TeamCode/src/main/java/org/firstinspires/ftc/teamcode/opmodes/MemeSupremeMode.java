@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.core.TankDrive;
 import org.firstinspires.ftc.teamcode.hw.MemeSupremeArm;
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.hw.MemeSupremeArm;
 /**
  * Created by FTC on 11/2/2017.
  */
+@TeleOp(name="Meme Supreme Mode")
 public class MemeSupremeMode extends OpMode {
 
     TankDrive rb;

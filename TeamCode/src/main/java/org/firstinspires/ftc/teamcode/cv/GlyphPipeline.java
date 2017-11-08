@@ -1,4 +1,4 @@
-package com.smartstar.opencvteamcode;
+package org.firstinspires.ftc.teamcode.cv;
 
 import java.util.ArrayList;
 import java.util.List;
